@@ -1,3 +1,6 @@
+"""elcpy
+This module is designed for accessing the WSDOT ELC REST SOE at http://www.wsdot.wa.gov/geoservices/arcgis/rest/services/Shared/ElcRestSOE/MapServer/exts/ElcRestSoe/
+"""
 import urllib2, json, re, urllib
 
 _BASEURL = "http://www.wsdot.wa.gov/geoservices/arcgis/rest/services/Shared/ElcRestSOE/MapServer/exts/ElcRestSoe/"
@@ -317,9 +320,10 @@ class Elc(object):
     routes = property(get_routes, doc="Gets a list of valid routes.")
 
 if __name__ == "__main__":
-    elc = Elc()
-    #print elc.routes
-    loc = RouteLocation(arm=5, route="005")
-    #print json.dumps([loc], True, cls=RouteLocationEncoder)
-    print elc.find_route_locations([loc], "12/31/2013", 4326)[0].__str__()
-    print elc.find_nearest_route_locations([-122.66401420868051, 45.687177315129304], "12/31/2013", 200, 4326)[0].__str__()
+    print __doc__
+    #elc = Elc()
+    ##print elc.routes
+    #loc = RouteLocation(arm=5, route="005")
+    ##print json.dumps([loc], True, cls=RouteLocationEncoder)
+    #print elc.find_route_locations([loc], "12/31/2013", 4326)[0].__str__()
+    #print elc.find_nearest_route_locations([-122.66401420868051, 45.687177315129304], "12/31/2013", 200, 4326)[0].__str__()
