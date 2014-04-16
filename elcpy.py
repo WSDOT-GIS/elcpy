@@ -104,7 +104,7 @@ class RouteLocationEncoder(json.JSONEncoder):
                     output[key] = d[key]
             return output
         else:
-            return super(MyEncoder, self).default(obj)
+            return super(RouteLocationEncoder, self).default(obj)
 
 
 class Elc(object):
