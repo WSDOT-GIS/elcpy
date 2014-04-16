@@ -42,8 +42,8 @@ class RouteLocation(object):
         - `arm`: Value for the arm property.
         - `srmp`: Value for the srmp property.
         - `back`: Value for the back property.
-        - `reference_date`: Value for the reference_date property.
-        - `response_date`: Value for the response_date property.
+        - `reference_date`: Reference date in "MM-DD-YYYY" format.
+        - `response_date`: Response date in "MM-DD-YYYY" format.
         - `realignment_date`: Value for the realignment_date property.
         - `end_arm`: Value for the end_arm property.
         - `end_srmp`: Value for the end_srmp property.
@@ -106,6 +106,44 @@ class RouteLocationEncoder(json.JSONEncoder):
                 output[key] = d[key]
         return output
 
+def dictToRouteLocation(d):
+    loc = RouteLocation()
+
+    loc.Id = d.get("Id", None)
+    loc.Route = d.get("Route", None)
+    loc.Decrease = d.get("Decrease", None)
+
+    loc.Arm = d.get("Arm", None)
+    loc.Srmp = d.get("Srmp", None)
+    loc.Back = d.get("Back", None)
+    loc.ReferenceDate = d.get("ReferenceDate", None)
+    loc.ResponseDate = d.get("ResponseDate", None)
+    loc.RealignmentDate = d.get("RealignmentDate", None)
+
+    loc.EndArm = d.get("EndArm", None)
+    loc.EndSrmp = d.get("EndSrmp", None)
+    loc.EndBack = d.get("EndBack", None)
+    loc.EndReferenceDate = d.get("EndReferenceDate", None)
+    loc.EndResponseDate = d.get("EndResponseDate", None)
+    loc.EndRealignDate = d.get("EndRealignDate", None)
+
+    loc.ArmCalcReturnCode = d.get("ArmCalcReturnCode", None)
+    loc.ArmCalcEndReturnCode = d.get("ArmCalcEndReturnCode", None)
+    loc.ArmCalcReturnMessage = d.get("ArmCalcReturnMessage", None)
+    loc.ArmCalcEndReturnMessage = d.get("ArmCalcEndReturnMessage", None)
+
+    loc.LocatingError = d.get("LocatingError", None)
+    loc.RouteGeometry = d.get("RouteGeometry", None)
+    loc.EventPoint = d.get("EventPoint", None)
+    loc.Distance = d.get("Distance", None)
+    loc.Angle = d.get("Angle", None)
+
+    return loc
+
+
+#class RouteLocationDecoder(json.JSONDecoder):
+#    def decode(self, s, _w = WHITESPACE.match):
+#        return super(RouteLocationDecoder, self).decode(s, _w)
 
 class Elc(object):
     """This object is used to call the ELC REST SOE endpoint.
@@ -165,8 +203,8 @@ class Elc(object):
         qs = urllib.urlencode(paramsDict.items())
         url += "?" + qs
         f = urllib2.urlopen(url)
-        # TODO: Cast results to RouteLocation objects.
-        return json.load(f)
+        # Cast results to RouteLocation objects.
+        return json.load(f, object_hook=dictToRouteLocation)
 
     def find_nearest_route_locations(self, coordinates, reference_date, search_radius, in_sr, out_sr=None, lrs_year=None, route_filter=None):
         param_dict = { 
@@ -184,14 +222,14 @@ class Elc(object):
             param_dict["routeFilter"] = route_filter
         url = self.url + _FIND_NEAREST_ROUTE_LOCATIONS + "?" + urllib.urlencode(param_dict.items())
         f = urllib2.urlopen(url)
-        #TODO: Cast results to RouteLocation objects.
-        return json.load(f)
+        #Cast results to RouteLocation objects.
+        return json.load(f, object_hook=dictToRouteLocation)
 
     routes = property(get_routes, doc="Gets a list of valid routes.")
 
 if __name__ == "__main__":
     elc = Elc()
-    #print elc.routes
+    print elc.routes
     loc = RouteLocation(arm=5, route="005")
     #print json.dumps([loc], True, cls=RouteLocationEncoder)
     print elc.find_route_locations([loc], "12/31/2013", 4326)
