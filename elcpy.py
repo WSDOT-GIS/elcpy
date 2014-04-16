@@ -8,103 +8,103 @@ _FIND_NEAREST_ROUTE_LOCATIONS = urllib.quote("Find Nearest Route Locations")
 class RouteLocation(object):
     """Represents a route location object used as input and output from the ELC.
     """
-    def __init__(self, Id=None,
-                 Route=None,
-                 Decrease=None,
-                 Arm=None,
-                 Srmp=None,
-                 Back=None,
-                 ReferenceDate=None,
-                 ResponseDate=None,
-                 RealignmentDate=None,
-                 EndArm=None,
-                 EndSrmp=None,
-                 EndBack=None,
-                 EndReferenceDate=None,
-                 EndResponseDate=None,
-                 EndRealignDate=None,
-                 ArmCalcReturnCode=None,
-                 ArmCalcEndReturnCode=None,
-                 ArmCalcReturnMessage=None,
-                 ArmCalcEndReturnMessage=None,
-                 LocatingError=None,
-                 RouteGeometry=None,
-                 EventPoint=None,
-                 Distance=None,
-                 Angle=None):
+    def __init__(self, id_=None,
+                 route=None,
+                 decrease=None,
+                 arm=None,
+                 srmp=None,
+                 back=None,
+                 reference_date=None,
+                 response_date=None,
+                 realignment_date=None,
+                 end_arm=None,
+                 end_srmp=None,
+                 end_back=None,
+                 end_reference_date=None,
+                 end_response_date=None,
+                 end_realign_date=None,
+                 armcalc_return_code=None,
+                 armcalc_end_return_code=None,
+                 armcalc_return_message=None,
+                 armcalc_end_return_message=None,
+                 locating_error=None,
+                 route_geometry=None,
+                 event_point=None,
+                 distance=None,
+                 angle=None):
         """Creates a new instance of RouteLocation.
 
         Parameters:
-        - `Id`: Value for the Id property.
-        - `Route`: Value for the Route property.
-        - `Decrease`: Value for the Decrease property.
-        - `Arm`: Value for the Arm property.
-        - `Srmp`: Value for the Srmp property.
-        - `Back`: Value for the Back property.
-        - `ReferenceDate`: Value for the ReferenceDate property.
-        - `ResponseDate`: Value for the ResponseDate property.
-        - `RealignmentDate`: Value for the RealignmentDate property.
-        - `EndArm`: Value for the EndArm property.
-        - `EndSrmp`: Value for the EndSrmp property.
-        - `EndBack`: Value for the EndBack property.
-        - `EndReferenceDate`: Value for the EndReferenceDate property.
-        - `EndResponseDate`: Value for the EndResponseDate property.
-        - `EndRealignDate`: Value for the EndRealignDate property.
-        - `ArmCalcReturnCode`: Value for the ArmCalcReturnCode property.
-        - `ArmCalcEndReturnCode`: Value for the ArmCalcEndReturnCode property.
-        - `ArmCalcReturnMessage`: Value for the ArmCalcReturnMessage property.
-        - `ArmCalcEndReturnMessage`: Value for the ArmCalcEndReturnMessage property.
-        - `LocatingError`: Value for the LocatingError property.
-        - `RouteGeometry`: Value for the RouteGeometry property.
-        - `EventPoint`: Value for the EventPoint property.
-        - `Distance`: Value for the Distance property.
-        - `Angle`: Value for the Angle property.
 
+        - `id_`: Value for the id_ property.
+        - `route`: Value for the route property.
+        - `decrease`: Value for the decrease property.
+        - `arm`: Value for the arm property.
+        - `srmp`: Value for the srmp property.
+        - `back`: Value for the back property.
+        - `reference_date`: Value for the reference_date property.
+        - `response_date`: Value for the response_date property.
+        - `realignment_date`: Value for the realignment_date property.
+        - `end_arm`: Value for the end_arm property.
+        - `end_srmp`: Value for the end_srmp property.
+        - `end_back`: Value for the end_back property.
+        - `end_reference_date`: Value for the end_reference_date property.
+        - `end_response_date`: Value for the end_response_date property.
+        - `end_realign_date`: Value for the end_realign_date property.
+        - `armcalc_return_code`: Value for the armcalc_return_code property.
+        - `armcalc_end_return_code`: Value for the armcalc_end_return_code property.
+        - `armcalc_return_message`: Value for the armcalc_return_message property.
+        - `armcalc_end_return_message`: Value for the armcalc_end_return_message property.
+        - `locating_error`: Value for the locating_error property.
+        - `route_geometry`: Value for the route_geometry property.
+        - `event_point`: Value for the event_point property.
+        - `distance`: Value for the distance property.
+        - `angle`: Value for the angle property.
         """
 
         #####
 
-        self.Id = Id
-        self.Route = Route
-        self.Decrease = Decrease
+        self.Id = id_
+        self.Route = route
+        self.Decrease = decrease
 
-        self.Arm = Arm
-        self.Srmp = Srmp
-        self.Back = Back
-        self.ReferenceDate = ReferenceDate
-        self.ResponseDate = ResponseDate
-        self.RealignmentDate = RealignmentDate
+        self.Arm = arm
+        self.Srmp = srmp
+        self.Back = back
+        self.ReferenceDate = reference_date
+        self.ResponseDate = response_date
+        self.RealignmentDate = realignment_date
 
-        self.EndArm = EndArm
-        self.EndSrmp = EndSrmp
-        self.EndBack = EndBack
-        self.EndReferenceDate = EndReferenceDate
-        self.EndResponseDate = EndResponseDate
-        self.EndRealignDate = EndRealignDate
+        self.EndArm = end_arm
+        self.EndSrmp = end_srmp
+        self.EndBack = end_back
+        self.EndReferenceDate = end_reference_date
+        self.EndResponseDate = end_response_date
+        self.EndRealignDate = end_realign_date
 
-        self.ArmCalcReturnCode = ArmCalcReturnCode
-        self.ArmCalcEndReturnCode = ArmCalcEndReturnCode
-        self.ArmCalcReturnMessage = ArmCalcReturnMessage
-        self.ArmCalcEndReturnMessage = ArmCalcEndReturnMessage
+        self.ArmCalcReturnCode = armcalc_return_code
+        self.ArmCalcEndReturnCode = armcalc_end_return_code
+        self.ArmCalcReturnMessage = armcalc_return_message
+        self.ArmCalcEndReturnMessage = armcalc_end_return_message
 
-        self.LocatingError = LocatingError
-        self.RouteGeometry = RouteGeometry
-        self.EventPoint = EventPoint
-        self.Distance = Distance
-        self.Angle = Angle
+        self.LocatingError = locating_error
+        self.RouteGeometry = route_geometry
+        self.EventPoint = event_point
+        self.Distance = distance
+        self.Angle = angle
         return super(RouteLocation, self).__init__()
 
 class RouteLocationEncoder(json.JSONEncoder):
     def default(self, obj):
-        if isinstance(obj, RouteLocation):
-            d = obj.__dict__
-            output = {}
-            for key in d:
-                if d[key] is not None:
-                    output[key] = d[key]
-            return output
-        else:
+        if not isinstance(obj, RouteLocation):
             return super(RouteLocationEncoder, self).default(obj)
+
+        d = obj.__dict__
+        output = {}
+        for key in d:
+            if d[key] is not None:
+                output[key] = d[key]
+        return output
 
 
 class Elc(object):
@@ -138,15 +138,15 @@ class Elc(object):
             self._routes = json.load(f)
         return self._routes
 
-    def findroutelocations(self, locations, referenceDate=None, outSR=None, lrsYear=None):
+    def find_route_locations(self, locations, reference_date=None, out_sr=None, lrs_year=None):
         """Finds the route locations.
 
         Parameters:
 
         - `locations`: A collection of RouteLocation objects
-        - `referenceDate`: The date that the `locations` were collected. If all of the `locations` objects have a `referenceDate` specified then this parameter is optional.
-        - `outSR`: Optional. The output spatial reference system WKID. If omitted the results will be in the LRS's spatial reference system (2927 as of this writing).
-        - `lrsYear`: Optional. If you want a year other than the most current one, provide its name here. See `self.routes` for a list of routes.
+        - `reference_date`: The date that the `locations` were collected. If all of the `locations` objects have a `referenceDate` specified then this parameter is optional.
+        - `out_sr`: Optional. The output spatial reference system WKID. If omitted the results will be in the LRS's spatial reference system (2927 as of this writing).
+        - `lrs_year`: Optional. If you want a year other than the most current one, provide its name here. See `self.routes` for a list of routes.
         """
         url = self.url + _FIND_ROUTE_LOCATIONS
         # Convert the locations into JSON strings.
@@ -155,12 +155,12 @@ class Elc(object):
                       "f": "json", 
                       "locations": locations_json 
                     }
-        if referenceDate is not None:
-            paramsDict["referenceDate"] = str(referenceDate)
-        if outSR is not None:
-            paramsDict["outSR"] = str(outSR)
-        if lrsYear is not None:
-            paramsDict["lrsYear"] = lrsYear
+        if reference_date is not None:
+            paramsDict["referenceDate"] = str(reference_date)
+        if out_sr is not None:
+            paramsDict["outSR"] = str(out_sr)
+        if lrs_year is not None:
+            paramsDict["lrsYear"] = lrs_year
         # Convert the parameters into a query string.
         qs = urllib.urlencode(paramsDict.items())
         url += "?" + qs
@@ -168,20 +168,20 @@ class Elc(object):
         # TODO: Cast results to RouteLocation objects.
         return json.load(f)
 
-    def findnearestroutelocations(self, coordinates, referenceDate, searchRadius, inSR, outSR=None, lrsYear=None, routeFilter=None):
+    def find_nearest_route_locations(self, coordinates, reference_date, search_radius, in_sr, out_sr=None, lrs_year=None, route_filter=None):
         param_dict = { 
                       "f": "json",
                       "coordinates": json.dumps(coordinates), 
-                      "referenceDate": referenceDate,
-                      "searchRadius": searchRadius,
-                      "inSR": inSR
+                      "referenceDate": reference_date,
+                      "searchRadius": search_radius,
+                      "inSR": in_sr
                       }
-        if outSR is not None:
-            param_dict["outSR"] = outSR
-        if lrsYear is not None:
-            param_dict["lrsYear"] = lrsYear
-        if routeFilter is not None:
-            param_dict["routeFilter"] = routeFilter
+        if out_sr is not None:
+            param_dict["outSR"] = out_sr
+        if lrs_year is not None:
+            param_dict["lrsYear"] = lrs_year
+        if route_filter is not None:
+            param_dict["routeFilter"] = route_filter
         url = self.url + _FIND_NEAREST_ROUTE_LOCATIONS + "?" + urllib.urlencode(param_dict.items())
         f = urllib2.urlopen(url)
         #TODO: Cast results to RouteLocation objects.
@@ -192,7 +192,7 @@ class Elc(object):
 if __name__ == "__main__":
     elc = Elc()
     #print elc.routes
-    loc = RouteLocation(Arm=5, Route="005")
+    loc = RouteLocation(arm=5, route="005")
     #print json.dumps([loc], True, cls=RouteLocationEncoder)
-    print elc.findroutelocations([loc], "12/31/2013", 4326)
-    print elc.findnearestroutelocations([-122.66401420868051, 45.687177315129304], "12/31/2013", 200, 4326)
+    print elc.find_route_locations([loc], "12/31/2013", 4326)
+    print elc.find_nearest_route_locations([-122.66401420868051, 45.687177315129304], "12/31/2013", 200, 4326)
