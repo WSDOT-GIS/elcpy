@@ -5,6 +5,68 @@ _ROUTES = "routes"
 _FIND_ROUTE_LOCATIONS = urllib.quote("Find Route Locations")
 _FIND_NEAREST_ROUTE_LOCATIONS = urllib.quote("Find Nearest Route Locations")
 
+_PROP_NAME_TO_JSON_NAME_DICT = {
+    "id_": "Id",
+    "route": "Route",
+    "decrease": "Decrease",
+
+    "arm": "Arm",
+    "srmp": "Srmp",
+    "back": "Back",
+    "reference_date": "ReferenceDate",
+    "response_date": "ResponseDate",
+    "realignment_date": "RealignmentDate",
+
+    "end_arm": "EndArm",
+    "end_srmp": "EndSrmp",
+    "end_back": "EndBack",
+    "end_reference_date": "EndReferenceDate",
+    "end_response_date": "EndResponseDate",
+    "end_realign_date": "EndRealignDate",
+
+    "armcalc_return_code": "ArmCalcReturnCode",
+    "armcalc_end_return_code": "ArmCalcEndReturnCode",
+    "armcalc_return_message": "ArmCalcReturnMessage",
+    "armcalc_end_return_message": "ArmCalcEndReturnMessage",
+
+    "locating_error": "LocatingError",
+    "route_geometry": "RouteGeometry",
+    "event_point": "EventPoint",
+    "distance": "Distance",
+    "angle": "Angle"
+}
+
+_JSON_NAME_TO_PROP_NAME_DICT = {
+    "Id": "id_",
+    "Route": "route",
+    "Decrease": "decrease",
+
+    "Arm": "arm",
+    "Srmp": "srmp",
+    "Back": "back",
+    "ReferenceDate": "reference_date",
+    "ResponseDate": "response_date",
+    "RealignmentDate": "realignment_date",
+
+    "EndArm": "end_arm",
+    "EndSrmp": "end_srmp",
+    "EndBack": "end_back",
+    "EndReferenceDate": "end_reference_date",
+    "EndResponseDate": "end_response_date",
+    "EndRealignDate": "end_realign_date",
+
+    "ArmCalcReturnCode": "armcalc_return_code",
+    "ArmCalcEndReturnCode": "armcalc_end_return_code",
+    "ArmCalcReturnMessage": "armcalc_return_message",
+    "ArmCalcEndReturnMessage": "armcalc_end_return_message",
+
+    "LocatingError": "locating_error",
+    "RouteGeometry": "route_geometry",
+    "EventPoint": "event_point",
+    "Distance": "distance",
+    "Angle": "angle"
+}
+
 class RouteLocation(object):
     """Represents a route location object used as input and output from the ELC.
     """
@@ -64,35 +126,100 @@ class RouteLocation(object):
 
         #####
 
-        self.Id = id_
-        self.Route = route
-        self.Decrease = decrease
+        self.id_ = id_
+        self.route = route
+        self.decrease = decrease
 
-        self.Arm = arm
-        self.Srmp = srmp
-        self.Back = back
-        self.ReferenceDate = reference_date
-        self.ResponseDate = response_date
-        self.RealignmentDate = realignment_date
+        self.arm = arm
+        self.srmp = srmp
+        self.back = back
+        self.reference_date = reference_date
+        self.response_date = response_date
+        self.realignment_date = realignment_date
 
-        self.EndArm = end_arm
-        self.EndSrmp = end_srmp
-        self.EndBack = end_back
-        self.EndReferenceDate = end_reference_date
-        self.EndResponseDate = end_response_date
-        self.EndRealignDate = end_realign_date
+        self.end_arm = end_arm
+        self.end_srmp = end_srmp
+        self.end_back = end_back
+        self.end_reference_date = end_reference_date
+        self.end_response_date = end_response_date
+        self.end_realign_date = end_realign_date
 
-        self.ArmCalcReturnCode = armcalc_return_code
-        self.ArmCalcEndReturnCode = armcalc_end_return_code
-        self.ArmCalcReturnMessage = armcalc_return_message
-        self.ArmCalcEndReturnMessage = armcalc_end_return_message
+        self.armcalc_return_code = armcalc_return_code
+        self.armcalc_end_return_code = armcalc_end_return_code
+        self.armcalc_return_message = armcalc_return_message
+        self.armcalc_end_return_message = armcalc_end_return_message
 
-        self.LocatingError = locating_error
-        self.RouteGeometry = route_geometry
-        self.EventPoint = event_point
-        self.Distance = distance
-        self.Angle = angle
+        self.locating_error = locating_error
+        self.route_geometry = route_geometry
+        self.event_point = event_point
+        self.distance = distance
+        self.angle = angle
         return super(RouteLocation, self).__init__()
+
+    def __str__(self):
+        return json.dumps(self, cls=RouteLocationEncoder) #self.__dict__.__str__()
+
+    def __repr__(self):
+        d = self.__dict__
+        output = "RouteLocation("
+        for key in d:
+            value = d[key]
+            if value is not None:
+                output += key + "=" + value.__repr__() + ","
+        output = output.rstrip(",")
+        output += ")"
+        return output #super(RouteLocation, self).__repr__()
+
+def dict_contains_any_of_these_keys(d, *args):
+    for a in args:
+        if d.has_key(a):
+            return True
+    return False
+
+def dict_to_route_location(d):
+    """Converts a dicitonary of route location data into a RouteLocation.
+    Indented for use with JSON deserialization.
+
+    Parameters:
+
+    - `d`: A dictionary.
+    """
+
+    if dict_contains_any_of_these_keys(d, *_JSON_NAME_TO_PROP_NAME_DICT.keys()):
+        loc = RouteLocation()
+
+        loc.id_ = d.get("Id", None)
+        loc.route = d.get("Route", None)
+        loc.decrease = d.get("Decrease", None)
+
+        loc.arm = d.get("Arm", None)
+        loc.srmp = d.get("Srmp", None)
+        loc.back = d.get("Back", None)
+        loc.reference_date = d.get("ReferenceDate", None)
+        loc.response_date = d.get("ResponseDate", None)
+        loc.realignment_date = d.get("RealignmentDate", None)
+
+        loc.end_arm = d.get("EndArm", None)
+        loc.end_srmp = d.get("EndSrmp", None)
+        loc.end_back = d.get("EndBack", None)
+        loc.end_reference_date = d.get("EndReferenceDate", None)
+        loc.end_response_date = d.get("EndResponseDate", None)
+        loc.end_realign_date = d.get("EndRealignDate", None)
+
+        loc.armcalc_return_code = d.get("ArmCalcReturnCode", None)
+        loc.armcalc_end_return_code = d.get("ArmCalcEndReturnCode", None)
+        loc.armcalc_return_message = d.get("ArmCalcReturnMessage", None)
+        loc.armcalc_end_return_message = d.get("ArmCalcEndReturnMessage", None)
+
+        loc.locating_error = d.get("LocatingError", None)
+        loc.route_geometry = d.get("RouteGeometry", None)
+        loc.event_point = d.get("EventPoint", None)
+        loc.distance = d.get("Distance", None)
+        loc.angle = d.get("Angle", None)
+
+        return loc
+    else:
+        return d
 
 class RouteLocationEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -103,47 +230,8 @@ class RouteLocationEncoder(json.JSONEncoder):
         output = {}
         for key in d:
             if d[key] is not None:
-                output[key] = d[key]
+                output[_PROP_NAME_TO_JSON_NAME_DICT[key]] = d[key]
         return output
-
-def dictToRouteLocation(d):
-    loc = RouteLocation()
-
-    loc.Id = d.get("Id", None)
-    loc.Route = d.get("Route", None)
-    loc.Decrease = d.get("Decrease", None)
-
-    loc.Arm = d.get("Arm", None)
-    loc.Srmp = d.get("Srmp", None)
-    loc.Back = d.get("Back", None)
-    loc.ReferenceDate = d.get("ReferenceDate", None)
-    loc.ResponseDate = d.get("ResponseDate", None)
-    loc.RealignmentDate = d.get("RealignmentDate", None)
-
-    loc.EndArm = d.get("EndArm", None)
-    loc.EndSrmp = d.get("EndSrmp", None)
-    loc.EndBack = d.get("EndBack", None)
-    loc.EndReferenceDate = d.get("EndReferenceDate", None)
-    loc.EndResponseDate = d.get("EndResponseDate", None)
-    loc.EndRealignDate = d.get("EndRealignDate", None)
-
-    loc.ArmCalcReturnCode = d.get("ArmCalcReturnCode", None)
-    loc.ArmCalcEndReturnCode = d.get("ArmCalcEndReturnCode", None)
-    loc.ArmCalcReturnMessage = d.get("ArmCalcReturnMessage", None)
-    loc.ArmCalcEndReturnMessage = d.get("ArmCalcEndReturnMessage", None)
-
-    loc.LocatingError = d.get("LocatingError", None)
-    loc.RouteGeometry = d.get("RouteGeometry", None)
-    loc.EventPoint = d.get("EventPoint", None)
-    loc.Distance = d.get("Distance", None)
-    loc.Angle = d.get("Angle", None)
-
-    return loc
-
-
-#class RouteLocationDecoder(json.JSONDecoder):
-#    def decode(self, s, _w = WHITESPACE.match):
-#        return super(RouteLocationDecoder, self).decode(s, _w)
 
 class Elc(object):
     """This object is used to call the ELC REST SOE endpoint.
@@ -176,6 +264,7 @@ class Elc(object):
             self._routes = json.load(f)
         return self._routes
 
+
     def find_route_locations(self, locations, reference_date=None, out_sr=None, lrs_year=None):
         """Finds the route locations.
 
@@ -204,7 +293,7 @@ class Elc(object):
         url += "?" + qs
         f = urllib2.urlopen(url)
         # Cast results to RouteLocation objects.
-        return json.load(f, object_hook=dictToRouteLocation)
+        return json.load(f, object_hook=dict_to_route_location)
 
     def find_nearest_route_locations(self, coordinates, reference_date, search_radius, in_sr, out_sr=None, lrs_year=None, route_filter=None):
         param_dict = { 
@@ -223,14 +312,14 @@ class Elc(object):
         url = self.url + _FIND_NEAREST_ROUTE_LOCATIONS + "?" + urllib.urlencode(param_dict.items())
         f = urllib2.urlopen(url)
         #Cast results to RouteLocation objects.
-        return json.load(f, object_hook=dictToRouteLocation)
+        return json.load(f, object_hook=dict_to_route_location)
 
     routes = property(get_routes, doc="Gets a list of valid routes.")
 
 if __name__ == "__main__":
     elc = Elc()
-    print elc.routes
+    #print elc.routes
     loc = RouteLocation(arm=5, route="005")
     #print json.dumps([loc], True, cls=RouteLocationEncoder)
-    print elc.find_route_locations([loc], "12/31/2013", 4326)
-    print elc.find_nearest_route_locations([-122.66401420868051, 45.687177315129304], "12/31/2013", 200, 4326)
+    print elc.find_route_locations([loc], "12/31/2013", 4326)[0].__str__()
+    print elc.find_nearest_route_locations([-122.66401420868051, 45.687177315129304], "12/31/2013", 200, 4326)[0].__str__()
