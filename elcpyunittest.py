@@ -23,6 +23,13 @@ class Test_unittest(unittest.TestCase):
         self.assertEqual(len(out_locations), 1, "Result has single element.")
         self.assertIsInstance(out_locations[0], elcpy.RouteLocation, "The first element in the returned array is an `elcpy.RouteLocation`.")
 
+    def test_find_nearest_route_location(self):
+        points = [1087403.28714286, 136623.00728571415]
+        out_locations = self.elc.find_nearest_route_locations(points, "12/31/2013", 200, 2927)
+        self.assertEqual(1, len(out_locations), "Input and output loctions should have the same number of elements.")
+        self.assertIsInstance(out_locations[0], elcpy.RouteLocation, "The first element in the returned array is an `elcpy.RouteLocation`.")
+        self.assertListEqual([out_locations[0].route, out_locations[0].arm], ["005", 5], "Test for expected Route ID and ARM values.")
+
     #def test_A(self):
     #    self.fail("Not implemented")
 
