@@ -1,3 +1,5 @@
+"""Unit test for the elcpy module.
+"""
 import unittest, elcpy
 
 class Test_unittest(unittest.TestCase):
