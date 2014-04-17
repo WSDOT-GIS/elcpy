@@ -1,6 +1,6 @@
 """Unit test for the elcpy module.
 """
-import unittest, elcpy
+import sys, unittest, elcpy
 
 class Test_unittest(unittest.TestCase):
     def setUp(self):
@@ -27,6 +27,7 @@ class Test_unittest(unittest.TestCase):
     #    self.fail("Not implemented")
 
 if __name__ == '__main__':
-    #unittest.main()
-    suite = unittest.TestLoader().loadTestsFromTestCase(Test_unittest)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+    unittest.main()
+    sys.exit()
+    #suite = unittest.TestLoader().loadTestsFromTestCase(Test_unittest)
+    #unittest.TextTestRunner(verbosity=2).run(suite)
