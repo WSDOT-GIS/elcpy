@@ -28,6 +28,6 @@ class Test_unittest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-    sys.exit()
+    sys.exit(0)
     #suite = unittest.TestLoader().loadTestsFromTestCase(Test_unittest)
     #unittest.TextTestRunner(verbosity=2).run(suite)
