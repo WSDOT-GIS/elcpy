@@ -27,7 +27,6 @@ class Test_unittest(unittest.TestCase):
     #    self.fail("Not implemented")
 
 if __name__ == '__main__':
-    unittest.main()
-    sys.exit(0)
-    #suite = unittest.TestLoader().loadTestsFromTestCase(Test_unittest)
-    #unittest.TextTestRunner(verbosity=2).run(suite)
+    #unittest.main()
+    suite = unittest.TestLoader().loadTestsFromTestCase(Test_unittest)
+    unittest.TextTestRunner(verbosity=2).run(suite)
