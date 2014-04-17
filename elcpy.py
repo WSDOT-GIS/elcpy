@@ -8,6 +8,17 @@ _ROUTES = "routes"
 _FIND_ROUTE_LOCATIONS = urllib.quote("Find Route Locations")
 _FIND_NEAREST_ROUTE_LOCATIONS = urllib.quote("Find Nearest Route Locations")
 
+def _flip_dict_keys_and_values(d):
+    """Switches the keys and values of a dictionary. The input dicitonary is not modified.
+
+    Output:
+        dict
+    """
+    output = {}
+    for key, value in d.items():
+        output[value] = key
+    return output
+
 _PROP_NAME_TO_JSON_NAME_DICT = {
     "id_": "Id",
     "route": "Route",
@@ -39,36 +50,12 @@ _PROP_NAME_TO_JSON_NAME_DICT = {
     "angle": "Angle"
 }
 
-_JSON_NAME_TO_PROP_NAME_DICT = {
-    "Id": "id_",
-    "Route": "route",
-    "Decrease": "decrease",
+_JSON_NAME_TO_PROP_NAME_DICT = _flip_dict_keys_and_values(_PROP_NAME_TO_JSON_NAME_DICT)
 
-    "Arm": "arm",
-    "Srmp": "srmp",
-    "Back": "back",
-    "ReferenceDate": "reference_date",
-    "ResponseDate": "response_date",
-    "RealignmentDate": "realignment_date",
-
-    "EndArm": "end_arm",
-    "EndSrmp": "end_srmp",
-    "EndBack": "end_back",
-    "EndReferenceDate": "end_reference_date",
-    "EndResponseDate": "end_response_date",
-    "EndRealignDate": "end_realign_date",
-
-    "ArmCalcReturnCode": "armcalc_return_code",
-    "ArmCalcEndReturnCode": "armcalc_end_return_code",
-    "ArmCalcReturnMessage": "armcalc_return_message",
-    "ArmCalcEndReturnMessage": "armcalc_end_return_message",
-
-    "LocatingError": "locating_error",
-    "RouteGeometry": "route_geometry",
-    "EventPoint": "event_point",
-    "Distance": "distance",
-    "Angle": "angle"
-}
+class ElcError(Exception):
+    def __init__(self, error_message):
+        self.message = error_message
+        return super(ElcError, self).__init__()
 
 class RouteLocation(object):
     """Represents a route location object used as input and output from the ELC.
@@ -187,7 +174,8 @@ def dict_to_route_location(d):
 
     - `d`: A dictionary.
     """
-
+    if d.has_key("error"):
+        return ElcError(*d)
     if dict_contains_any_of_these_keys(d, *_JSON_NAME_TO_PROP_NAME_DICT.keys()):
         loc = RouteLocation()
 
@@ -296,7 +284,10 @@ class Elc(object):
         url += "?" + qs
         f = urllib2.urlopen(url)
         # Cast results to RouteLocation objects.
-        return json.load(f, object_hook=dict_to_route_location)
+        output = json.load(f, object_hook=dict_to_route_location)
+        if isinstance(output, Exception):
+            raise output
+        return output
 
     def find_nearest_route_locations(self, coordinates, reference_date, search_radius, in_sr, out_sr=None, lrs_year=None, route_filter=None):
         param_dict = { 
@@ -315,7 +306,10 @@ class Elc(object):
         url = self.url + _FIND_NEAREST_ROUTE_LOCATIONS + "?" + urllib.urlencode(param_dict.items())
         f = urllib2.urlopen(url)
         #Cast results to RouteLocation objects.
-        return json.load(f, object_hook=dict_to_route_location)
+        output = json.load(f, object_hook=dict_to_route_location)
+        if isinstance(output, Exception):
+            raise output
+        return output
 
     routes = property(get_routes, doc="Gets a list of valid routes.")
 
