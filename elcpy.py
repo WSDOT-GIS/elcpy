@@ -213,7 +213,15 @@ def dict_to_route_location(d):
         return d
 
 class RouteLocationEncoder(json.JSONEncoder):
+    """This class is used for converting a `RouteLocation` into JSON.
+    """
     def default(self, obj):
+        """Converts the input object into a `dict`.
+
+        Parameters:
+        
+        - `obj`: The object that is being converted to JSON.
+        """
         if not isinstance(obj, RouteLocation):
             return super(RouteLocationEncoder, self).default(obj)
 
@@ -290,6 +298,21 @@ class Elc(object):
         return output
 
     def find_nearest_route_locations(self, coordinates, reference_date, search_radius, in_sr, out_sr=None, lrs_year=None, route_filter=None):
+        """Finds the route locations nearest to the input coordinates.
+
+        Parameters:
+
+        - `coordinates`: E.g.:
+
+            - `[1087403.28714286, 136623.00728571415]`
+            - `[[1087403.28714286, 136623.00728571415],[1087403.28714286, 136623.00728571415]]`
+        - `reference_date`: The date that the coordinates were collected.
+        - `search_radius`: The search radius in inches.
+        - `in_sr`: The coordinate system WKID of the input `coordinates`.
+        - `out_sr`: The cooordinate system to use for the output. Defaults to the LRS's coordinates system if omitted.
+        - `lrs_year`: The LRS year. See `self.routes` for a list of valid LRS years.
+        - `route_filter`: A partial SQL query that can be used to limit which routes are searched.  E.g., "LIKE '005%'" or "'005'".
+        """
         param_dict = { 
                       "f": "json",
                       "coordinates": json.dumps(coordinates), 
