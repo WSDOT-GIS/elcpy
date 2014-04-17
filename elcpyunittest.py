@@ -24,6 +24,8 @@ class Test_unittest(unittest.TestCase):
         self.assertIsInstance(out_locations[0], elcpy.RouteLocation, "The first element in the returned array is an `elcpy.RouteLocation`.")
 
     def test_find_nearest_route_location(self):
+        """Test the `elcpy.Elc.find_dearest_route_locations` function.
+        """
         points = [1087403.28714286, 136623.00728571415]
         out_locations = self.elc.find_nearest_route_locations(points, "12/31/2013", 200, 2927)
         self.assertEqual(1, len(out_locations), "Input and output loctions should have the same number of elements.")
