@@ -1,5 +1,4 @@
 language: python
 python:
-  - "2.7"
-script:  python elcpyunittest.py
-sudo: false
+  - "3.7-dev"
+script:  python -m unittest discover . "*test.py"
