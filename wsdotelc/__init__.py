@@ -1,7 +1,7 @@
 """elcpy
 This module is designed for accessing the WSDOT ELC REST SOE at https://data.wsdot.wa.gov/arcgis/rest/services/Shared/ElcRestSOE/MapServer/exts/ElcRestSoe/
 """
-from __future__ import print_function, absolute_import, division, unicode_literals
+
 import datetime
 import json
 from dataclasses import dataclass
@@ -22,8 +22,7 @@ class ElcError(Exception):
 
 @dataclass
 class RouteLocation(object):
-    """Represents a route location object used as input and output from the ELC.
-    """
+    """Represents a route location object used as input and output from the ELC."""
 
     Id: int = None
     Route: str = None
@@ -59,8 +58,7 @@ def dict_contains_any_of_these_keys(d, *args):
 
 
 class RouteLocationEncoder(json.JSONEncoder):
-    """This class is used for converting a `RouteLocation` into JSON.
-    """
+    """This class is used for converting a `RouteLocation` into JSON."""
 
     def default(self, o):
         """Converts the input object into a `dict`.
@@ -74,12 +72,14 @@ class RouteLocationEncoder(json.JSONEncoder):
 
         return super().default(o)
 
+
 def dict_to_route_location(dct):
     if "error" in dct:
         return ElcError(dct["error"]["message"])
     if "Route" in dct:
         return RouteLocation(**dct)
     return dct
+
 
 class Elc(object):
     """This object is used to call the ELC REST SOE endpoint.
@@ -113,7 +113,9 @@ class Elc(object):
             self._routes = response.json()
         return self._routes
 
-    def find_route_locations(self, locations, reference_date=None, out_sr=None, lrs_year=None):
+    def find_route_locations(
+        self, locations, reference_date=None, out_sr=None, lrs_year=None
+    ):
         """Finds the route locations.
 
         Parameters:
@@ -126,10 +128,7 @@ class Elc(object):
         url = self.url + _FIND_ROUTE_LOCATIONS
         # Convert the locations into JSON strings.
         locations_json = json.dumps(locations, cls=RouteLocationEncoder)
-        params_dict = {
-            "f": "json",
-            "locations": locations_json
-        }
+        params_dict = {"f": "json", "locations": locations_json}
         if reference_date is not None:
             params_dict["referenceDate"] = str(reference_date)
         if out_sr is not None:
@@ -148,7 +147,16 @@ class Elc(object):
             raise output
         return output
 
-    def find_nearest_route_locations(self, coordinates, reference_date, search_radius, in_sr, out_sr=None, lrs_year=None, route_filter=None):
+    def find_nearest_route_locations(
+        self,
+        coordinates,
+        reference_date,
+        search_radius,
+        in_sr,
+        out_sr=None,
+        lrs_year=None,
+        route_filter=None,
+    ):
         """Finds the route locations nearest to the input coordinates.
 
         Parameters:
@@ -169,7 +177,7 @@ class Elc(object):
             "coordinates": json.dumps(coordinates),
             "referenceDate": reference_date,
             "searchRadius": search_radius,
-            "inSR": in_sr
+            "inSR": in_sr,
         }
         if out_sr is not None:
             param_dict["outSR"] = out_sr
